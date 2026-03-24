@@ -1,7 +1,7 @@
 ﻿# CardioSense
 # 🫀 CardioSense — AI Heart Risk Intelligence
 
-> Built for **HackHustle 2.0** 
+> Built for **HackHustle 2.0** by **Syntax Survey Cops** 
 
 ## 📌 Problem Statement
 Cardiovascular disease kills 17.9 million people yearly — 80% of which are preventable with early detection. Most people don't get screened until symptoms appear. CardioSense makes cardiac risk screening instant, accessible and free.
