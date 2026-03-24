@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CardioSense — AI Heart Risk Intelligence</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400;1,600&family=DM+Mono:wght@300;400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="nav">
+    <div class="nav-inner">
+      <div class="wordmark">
+        <span class="wm-icon">♥</span>
+        <span class="wm-text">CardioSense</span>
+      </div>
+      <div class="nav-links">
+        <a href="#assess" class="pill-link">Assess</a>
+        <a href="#services" class="pill-link">Services</a>
+        <a href="#emergency" class="pill-link">Emergency</a>
+      </div>
+      <button class="cta-btn" onclick="scrollToAssess()">Check My Risk →</button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <video autoplay muted loop playsinline id="hero-video">
+      <source src="https://assets.mixkit.co/videos/preview/mixkit-heart-rate-monitor-1283-large.mp4" type="video/mp4" />
+    </video>
+    <div class="hero-overlay"></div>
+
+    <div class="hero-headline" id="hero-headline">
+      <span class="hl-label">AI-Powered Cardiology</span>
+      <h1 class="hl-main"><em>Know Your Heart.<br/>Before It Speaks.</em></h1>
+      <p class="hl-sub"><span id="typewriter"></span><span class="cursor">|</span></p>
+      <button class="hero-cta" onclick="scrollToAssess()">
+        <span>Run Risk Analysis</span>
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+
+    <div class="stat-chip chip-tl" id="chip1">
+      <span class="chip-num">17.9M</span>
+      <span class="chip-label">CVD deaths / year globally</span>
+    </div>
+    <div class="stat-chip chip-tr" id="chip2">
+      <span class="chip-num">80%</span>
+      <span class="chip-label">Preventable with early detection</span>
+    </div>
+    <div class="stat-chip chip-bl" id="chip3">
+      <span class="chip-num">&lt;2min</span>
+      <span class="chip-label">AI assessment time</span>
+    </div>
+    <div class="stat-chip chip-br" id="chip4">
+      <span class="chip-num">94.2%</span>
+      <span class="chip-label">Model accuracy rate</span>
+    </div>
+  </section>
+
+  <!-- ASSESS -->
+  <section id="assess">
+    <div class="section-header">
+      <span class="section-tag">// AI ASSESSMENT</span>
+      <h2>Instant Cardiac <em>Risk Intelligence</em></h2>
+      <p>13 clinical parameters. One model. Your cardiac risk score in seconds.</p>
+    </div>
+
+    <div class="assess-card">
+
+      <!-- Step indicator -->
+      <div class="form-steps">
+        <div class="form-step active" data-step="1">
+          <span class="step-num">01</span>
+          <span class="step-label">Basic Info</span>
+        </div>
+        <div class="step-divider"></div>
+        <div class="form-step" data-step="2">
+          <span class="step-num">02</span>
+          <span class="step-label">Cardiac Metrics</span>
+        </div>
+        <div class="step-divider"></div>
+        <div class="form-step" data-step="3">
+          <span class="step-num">03</span>
+          <span class="step-label">Clinical Data</span>
+        </div>
+      </div>
+
+      <form id="risk-form" autocomplete="off" novalidate>
+
+        <!-- PAGE 1 -->
+        <div class="form-page active" id="page-1">
+          <div class="form-grid">
+
+            <div class="field-group">
+              <label>Age <span class="field-hint">1 – 120</span></label>
+              <input type="number" name="age" placeholder="e.g. 52" required />
+            </div>
+
+            <div class="field-group toggle-group">
+              <label>Biological Sex</label>
+              <div class="toggle-row">
+                <button type="button" class="toggle-btn" data-field="sex" data-val="0">Female (0)</button>
+                <button type="button" class="toggle-btn active" data-field="sex" data-val="1">Male (1)</button>
+              </div>
+              <input type="hidden" name="sex" value="1" />
+            </div>
+
+            <div class="field-group">
+              <label>Chest Pain Type</label>
+              <select name="cp" required>
+                <option value="" disabled selected>Select type</option>
+                <option value="0">0 — Typical Angina</option>
+                <option value="1">1 — Atypical Angina</option>
+                <option value="2">2 — Non-Anginal Pain</option>
+                <option value="3">3 — Asymptomatic</option>
+              </select>
+              <span class="field-hint-block">Clinical classification of chest pain</span>
+            </div>
+
+            <div class="field-group toggle-group">
+              <label>Fasting Blood Sugar &gt; 120 mg/dL</label>
+              <div class="toggle-row">
+                <button type="button" class="toggle-btn active" data-field="fbs" data-val="0">No (0)</button>
+                <button type="button" class="toggle-btn" data-field="fbs" data-val="1">Yes (1)</button>
+              </div>
+              <input type="hidden" name="fbs" value="0" />
+            </div>
+
+          </div>
+          <div class="form-nav-row">
+            <div></div>
+            <button type="button" class="next-btn" onclick="goToPage(2)">Cardiac Metrics →</button>
+          </div>
+        </div>
+
+        <!-- PAGE 2 -->
+        <div class="form-page" id="page-2">
+          <div class="form-grid">
+
+            <div class="field-group">
+              <label>Resting Blood Pressure <span class="unit">mmHg</span></label>
+              <input type="number" name="trestbps" placeholder="e.g. 130" min="50" max="250" required />
+              <span class="field-hint-block">Measured at hospital admission</span>
+            </div>
+
+            <div class="field-group">
+              <label>Serum Cholesterol <span class="unit">mg/dL</span></label>
+              <input type="number" name="chol" placeholder="e.g. 240" min="100" max="600" required />
+            </div>
+
+            <div class="field-group">
+              <label>Max Heart Rate <span class="unit">bpm</span></label>
+              <input type="number" name="thalach" placeholder="e.g. 150" min="50" max="250" required />
+              <span class="field-hint-block">Peak during exercise stress test</span>
+            </div>
+
+            <div class="field-group toggle-group">
+              <label>Exercise-Induced Angina</label>
+              <div class="toggle-row">
+                <button type="button" class="toggle-btn active" data-field="exang" data-val="0">No (0)</button>
+                <button type="button" class="toggle-btn" data-field="exang" data-val="1">Yes (1)</button>
+              </div>
+              <input type="hidden" name="exang" value="0" />
+            </div>
+
+          </div>
+          <div class="form-nav-row">
+            <button type="button" class="back-btn" onclick="goToPage(1)">← Back</button>
+            <button type="button" class="next-btn" onclick="goToPage(3)">Clinical Data →</button>
+          </div>
+        </div>
+
+        <!-- PAGE 3 -->
+        <div class="form-page" id="page-3">
+          <div class="form-grid">
+
+            <div class="field-group">
+              <label>Resting ECG Results</label>
+              <select name="restecg" required>
+                <option value="" disabled selected>Select result</option>
+                <option value="0">0 — Normal</option>
+                <option value="1">1 — ST-T Wave Abnormality</option>
+                <option value="2">2 — Left Ventricular Hypertrophy</option>
+              </select>
+            </div>
+
+            <div class="field-group">
+              <label>ST Depression (Oldpeak) <span class="field-hint">0.0 – 10.0</span></label>
+              <input type="number" name="oldpeak" placeholder="e.g. 1.4" step="0.1" min="0" max="10" required />
+              <span class="field-hint-block">Induced by exercise relative to rest</span>
+            </div>
+
+            <div class="field-group">
+              <label>Slope of Peak ST Segment</label>
+              <select name="slope" required>
+                <option value="" disabled selected>Select slope</option>
+                <option value="0">0 — Upsloping</option>
+                <option value="1">1 — Flat</option>
+                <option value="2">2 — Downsloping</option>
+              </select>
+            </div>
+
+            <div class="field-group">
+              <label>Major Vessels (Fluoroscopy) <span class="field-hint">0 – 4</span></label>
+              <select name="ca" required>
+                <option value="" disabled selected>Select count</option>
+                <option value="0">0 vessels</option>
+                <option value="1">1 vessel</option>
+                <option value="2">2 vessels</option>
+                <option value="3">3 vessels</option>
+                <option value="4">4 vessels</option>
+              </select>
+            </div>
+
+            <div class="field-group">
+              <label>Thalassemia Type</label>
+              <select name="thal" required>
+                <option value="" disabled selected>Select type</option>
+                <option value="0">0 — Normal</option>
+                <option value="1">1 — Fixed Defect</option>
+                <option value="2">2 — Reversible Defect</option>
+                <option value="3">3 — Unknown</option>
+              </select>
+            </div>
+
+          </div>
+          <div class="form-nav-row">
+            <button type="button" class="back-btn" onclick="goToPage(2)">← Back</button>
+            <button type="submit" class="submit-btn" id="submit-btn">
+              <span id="btn-text">Analyse Risk</span>
+              <div class="btn-loader hidden" id="btn-loader"></div>
+            </button>
+          </div>
+        </div>
+
+      </form>
+
+      <!-- Result panel -->
+      <div id="result-panel" class="result-panel hidden">
+        <div class="result-inner">
+          <div class="result-gauge">
+            <svg viewBox="0 0 200 120" class="gauge-svg">
+              <defs>
+                <linearGradient id="gaugeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" style="stop-color:#22c55e"/>
+                  <stop offset="50%" style="stop-color:#f59e0b"/>
+                  <stop offset="100%" style="stop-color:#e8112d"/>
+                </linearGradient>
+              </defs>
+              <path d="M 20 105 A 80 80 0 0 1 180 105" stroke="rgba(255,255,255,0.07)" stroke-width="14" fill="none" stroke-linecap="round"/>
+              <path id="gauge-arc" d="M 20 105 A 80 80 0 0 1 180 105" stroke="url(#gaugeGrad)" stroke-width="14" fill="none" stroke-linecap="round" stroke-dasharray="251" stroke-dashoffset="251" style="transition: stroke-dashoffset 1.4s cubic-bezier(0.4,0,0.2,1)"/>
+              <text x="100" y="96" text-anchor="middle" class="gauge-pct" id="gauge-pct">—</text>
+              <text x="100" y="115" text-anchor="middle" class="gauge-risk-label" id="gauge-risk-label">CALCULATING</text>
+            </svg>
+          </div>
+          <div class="result-details" id="result-details"></div>
+          <button class="reset-btn" onclick="resetForm()">← Run Another Assessment</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="section-header">
+      <span class="section-tag">// SERVICES</span>
+      <h2>Clinical-Grade <em>Cardiac Care</em></h2>
+    </div>
+    <div class="services-grid">
+      <div class="service-card" style="--delay:0ms">
+        <div class="sc-icon">⚡</div>
+        <h3>Instant AI Screening</h3>
+        <p>Multi-parameter cardiovascular risk scoring powered by trained clinical models. Results in under 2 minutes.</p>
+        <span class="sc-tag free">Free</span>
+      </div>
+      <div class="service-card" style="--delay:80ms">
+        <div class="sc-icon">📊</div>
+        <h3>Longitudinal Tracking</h3>
+        <p>Track risk scores over time. Visualise how lifestyle changes and medications shift your cardiac profile.</p>
+        <span class="sc-tag pro">Pro</span>
+      </div>
+      <div class="service-card" style="--delay:160ms">
+        <div class="sc-icon">🩺</div>
+        <h3>Specialist Referral</h3>
+        <p>High-risk alerts automatically flag for cardiologist review. Connect with certified specialists within 24h.</p>
+        <span class="sc-tag pro">Pro</span>
+      </div>
+      <div class="service-card" style="--delay:240ms">
+        <div class="sc-icon">📋</div>
+        <h3>Report Generation</h3>
+        <p>Detailed clinical-style PDF reports for your doctor, including risk breakdown and recommendations.</p>
+        <span class="sc-tag free">Free</span>
+      </div>
+      <div class="service-card" style="--delay:320ms">
+        <div class="sc-icon">💊</div>
+        <h3>Medication Interaction Check</h3>
+        <p>Check how your current medications may affect cardiac risk, powered by pharmacological databases.</p>
+        <span class="sc-tag pro">Pro</span>
+      </div>
+      <div class="service-card" style="--delay:400ms">
+        <div class="sc-icon">🧬</div>
+        <h3>Genetic Risk Layer</h3>
+        <p>Layer genetic predisposition data onto your AI assessment for comprehensive hereditary cardiac risk analysis.</p>
+        <span class="sc-tag beta">Beta</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- EMERGENCY -->
+  <section id="emergency">
+    <div class="emergency-card">
+      <div class="emg-pulse-ring"></div>
+      <div class="emg-pulse-ring ring2"></div>
+      <div class="emg-content">
+        <div class="emg-left">
+          <span class="emg-tag">⚠ EMERGENCY CONTACTS</span>
+          <h2>Experiencing Chest Pain <em>Right Now?</em></h2>
+          <p>Do not wait. Cardiac events are time-critical. Call emergency services immediately.</p>
+          <div class="emg-contacts">
+            <a href="tel:108" class="emg-btn emg-primary">
+              <span class="emg-btn-icon">📞</span>
+              <span><strong>108</strong><small>India Emergency Services</small></span>
+            </a>
+            <a href="tel:18001801104" class="emg-btn">
+              <span class="emg-btn-icon">❤</span>
+              <span><strong>1800-180-1104</strong><small>National Heart Helpline</small></span>
+            </a>
+            <a href="tel:04428193333" class="emg-btn">
+              <span class="emg-btn-icon">🏥</span>
+              <span><strong>044-2819 3333</strong><small>Apollo Chennai 24/7</small></span>
+            </a>
+          </div>
+        </div>
+        <div class="emg-right">
+          <h4>Warning Signs</h4>
+          <ul class="symptom-list">
+            <li><span class="sym-dot"></span>Chest pressure, tightness or squeezing pain</li>
+            <li><span class="sym-dot"></span>Pain radiating to arm, jaw, neck or back</li>
+            <li><span class="sym-dot"></span>Sudden shortness of breath</li>
+            <li><span class="sym-dot"></span>Cold sweat, nausea or lightheadedness</li>
+            <li><span class="sym-dot"></span>Rapid or irregular heartbeat</li>
+          </ul>
+          <p class="emg-note">If you experience 2 or more of these symptoms, call emergency services immediately. Do not drive yourself to hospital.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="wordmark">
+        <span class="wm-icon">♥</span>
+        <span class="wm-text">CardioSense</span>
+      </div>
+      <p class="footer-disc">This tool is for informational purposes only and does not constitute medical advice. Always consult a qualified healthcare professional for cardiac concerns.</p>
+      <p class="footer-copy">© 2025 CardioSense · Built for healthcare innovation</p>
+    </div>
+  </footer>
+
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
